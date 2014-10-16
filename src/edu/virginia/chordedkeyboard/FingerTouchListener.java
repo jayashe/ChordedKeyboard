@@ -14,15 +14,13 @@ import android.widget.TextView;
 
 public class FingerTouchListener implements OnTouchListener {
 
-	private TextView outputView, sentenceOutput;
 	private KeyboardEventHandler pressHandler;
 	private Map<Button, Boolean> fingersDownMap;
 	private int downCount = 0;
 	private boolean waitingForAllDown = false;
  	
-	public FingerTouchListener(TextView keyOutput, TextView so, List<Button> fingers) {
-		outputView = keyOutput;
-		pressHandler = new KeyboardEventHandler(keyOutput, so);
+	public FingerTouchListener(KeyboardEventHandler keh, List<Button> fingers) {
+		pressHandler = keh;
 		fingersDownMap = new HashMap<Button, Boolean>();
 		for (Button b : fingers) {
 			fingersDownMap.put(b, false);

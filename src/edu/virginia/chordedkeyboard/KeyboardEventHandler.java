@@ -14,7 +14,7 @@ public class KeyboardEventHandler {
 	
 	public void recordPress(int i) {
 		if (i == 30) {
-			
+			backspace();
 		} else if (i == 31) {
 			//Enter
 		} else {
@@ -31,6 +31,16 @@ public class KeyboardEventHandler {
 			LetterOutput.setText("Enter");
 		} else {
 			LetterOutput.setText(mapPress(i));
+		}
+	}
+	
+	public void clear() {
+		sb.delete(0, sb.length());
+	}
+	
+	private void backspace() {
+		if (sb.length() > 0) {
+			sb.delete(sb.length() - 1, sb.length());
 		}
 	}
 	
