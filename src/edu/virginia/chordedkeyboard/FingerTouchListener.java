@@ -14,13 +14,15 @@ import android.widget.TextView;
 
 public class FingerTouchListener implements OnTouchListener {
 
-	private TextView outputView;
+	private TextView outputView, sentenceOutput;
+	private KeyboardEventHandler pressHandler;
 	private Map<Button, Boolean> fingersDownMap;
 	private int downCount = 0;
 	private boolean waitingForAllDown = false;
  	
-	public FingerTouchListener(TextView keyOutput, List<Button> fingers) {
+	public FingerTouchListener(TextView keyOutput, TextView so, List<Button> fingers) {
 		outputView = keyOutput;
+		pressHandler = new KeyboardEventHandler(keyOutput, so);
 		fingersDownMap = new HashMap<Button, Boolean>();
 		for (Button b : fingers) {
 			fingersDownMap.put(b, false);
@@ -32,9 +34,10 @@ public class FingerTouchListener implements OnTouchListener {
 		if(event.getAction() == MotionEvent.ACTION_DOWN) {
 			view.setBackgroundColor(Color.RED);
 			fingersDownMap.put((Button) view, true);
+			pressHandler.updateDisplay(checkFingers());
 			downCount++;
         } else if (event.getAction() == MotionEvent.ACTION_UP && !waitingForAllDown) {
-			outputView.setText(checkFingers().getValue().toString());
+			pressHandler.recordPress(checkFingers());
 			fingersDownMap.put((Button) view, false);
 			view.setBackgroundColor(Color.LTGRAY);
 			waitingForAllDown = true;
@@ -54,18 +57,15 @@ public class FingerTouchListener implements OnTouchListener {
 		return true;
 	}
 	
-	public Map.Entry<String, Integer> checkFingers() {
-		StringBuilder sb = new StringBuilder();
+	public Integer checkFingers() {
 		int total = 0;
 		for (Map.Entry<Button, Boolean> b : fingersDownMap.entrySet()) {
 			if (b.getValue()) {
 				String keypress = (String) b.getKey().getTag(R.string.finger_button_key);
-				sb.append(keypress).append(" ");
 				total += Integer.parseInt(keypress);
 			}
 		}
-		Map.Entry<String, Integer> result = new AbstractMap.SimpleEntry<String, Integer>(sb.toString(), total);
-		return result;
+		return total;
 	}
 
 }

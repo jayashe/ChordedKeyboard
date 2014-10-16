@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
 	Button pinky, ring, middle, pointer, thumb;
-	TextView selectedLetter;
+	TextView selectedLetter, sentenceView;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +43,9 @@ public class MainActivity extends ActionBarActivity {
         fingers.add(thumb);
         
         selectedLetter = (TextView) findViewById(R.id.selectedLetterView);
+        sentenceView = (TextView) findViewById(R.id.sentenceView);
         
-        FingerTouchListener ftl = new FingerTouchListener(selectedLetter, fingers);
+        FingerTouchListener ftl = new FingerTouchListener(selectedLetter, sentenceView, fingers);
         pinky.setOnTouchListener(ftl);
         ring.setOnTouchListener(ftl);
         middle.setOnTouchListener(ftl);

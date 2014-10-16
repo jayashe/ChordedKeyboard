@@ -74,6 +74,15 @@
         android:text="Letter will go here"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    
+    <TextView
+        android:id="@+id/sentenceView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/Pinky"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/selectedLetterView"
+        android:layout_marginTop="52dp"
+        android:text="Sentence Will Go Here"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>
